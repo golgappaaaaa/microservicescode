@@ -22,9 +22,7 @@ jobs:
         run: |
           docker build -t karantaneja2501/microservicesheelloimages:product -f ProductApi/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:product
-          
           docker build -t karantaneja2501/microservicesheelloimages:customer -f CustomerApi/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:customer
-          
           docker build -t karantaneja2501/microservicesheelloimages:gateway -f ApiGateway/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:gateway
