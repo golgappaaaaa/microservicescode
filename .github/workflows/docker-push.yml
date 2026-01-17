@@ -20,8 +20,7 @@ jobs:
 
       - name: Build Product API
         run: |
-          # Pehle folder check karte hain ki ProductApi kahan hai
-          ls -R
-          # Ab build chalate hain
-          docker build -t karantaneja2501/microservicesheelloimages:product -f ./ProductApi/Dockerfile .
+          # Sabse aasaan rasta: Folder ke andar jaakar build karo
+          cd ProductApi
+          docker build -t karantaneja2501/microservicesheelloimages:product .
           docker push karantaneja2501/microservicesheelloimages:product
