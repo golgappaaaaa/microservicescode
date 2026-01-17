@@ -19,10 +19,15 @@ jobs:
 
       - name: Build and Push Product API
         run: |
-          docker build -t karantaneja2501/microservicesheelloimages:product -f ProductApi/Dockerfile .
-          docker push karantaneja2501/microservicesheelloimages:product
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/microservicesheelloimages:product -f ./ProductApi/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/microservicesheelloimages:product
 
       - name: Build and Push Customer API
         run: |
-          docker build -t karantaneja2501/microservicesheelloimages:customer -f CustomerApi/Dockerfile .
-          docker push karantaneja2501/microservicesheelloimages:customer
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/microservicesheelloimages:customer -f ./CustomerApi/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/microservicesheelloimages:customer
+
+      - name: Build and Push Gateway
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/microservicesheelloimages:gateway -f ./ApiGateway/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/microservicesheelloimages:gateway
