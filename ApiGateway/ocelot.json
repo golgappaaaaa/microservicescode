@@ -1,0 +1,105 @@
+//{
+//  "Routes": [
+//    {
+//      "DownstreamPathTemplate": "/api/products",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 5001
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/products",
+//      "UpstreamHttpMethod": [ "GET" ],
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer",
+//        "AllowedScopes": []
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/customers",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 5002
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/customers",
+//      "UpstreamHttpMethod": [ "GET" ],
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer",
+//        "AllowedScopes": []
+//      }
+//    }
+//  ],
+//  "GlobalConfiguration": {
+//    "BaseUrl": "https://localhost:5000"
+//  }
+//}
+//{
+//  "Routes": [
+//    {
+//      "DownstreamPathTemplate": "/api/products",
+//      "DownstreamScheme": "http",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "productapi",
+//          "Port": 80
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/products",
+//      "UpstreamHttpMethod": [ "GET" ]
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/customers",
+//      "DownstreamScheme": "http",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "customerapi",
+//          "Port": 80
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/customers",
+//      "UpstreamHttpMethod": [ "GET" ]
+//    }
+//  ],
+//  "GlobalConfiguration": {
+//    "BaseUrl": "http://localhost:5000"
+//  }
+//}
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/products",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "customerapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/customers",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

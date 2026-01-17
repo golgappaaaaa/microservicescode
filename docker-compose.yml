@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  productapi:
+    container_name: product-api-container
+    build:
+      context: ./ProductApi
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5001:80"
+
+  customerapi:
+    container_name: customer-api-container
+    build:
+      context: ./CustomerApi
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5002:80"
+
+  apigateway:
+    container_name: gateway-container
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5000:80"
+    depends_on:
+      - productapi
+      - customerapi

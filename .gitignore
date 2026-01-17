@@ -1,0 +1,17 @@
+# OS files
+.docker/
+npm-cache/
+.config/
+.gitconfig
+.angular-config.json
+
+# .NET kachra
+bin/
+obj/
+.nuget/
+packages/
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
