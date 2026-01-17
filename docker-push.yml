@@ -18,17 +18,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Product API
+      - name: Build and Push Images
         run: |
           docker build -t karantaneja2501/microservicesheelloimages:product -f ProductApi/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:product
-
-      - name: Build and Push Customer API
-        run: |
+          
           docker build -t karantaneja2501/microservicesheelloimages:customer -f CustomerApi/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:customer
-
-      - name: Build and Push Gateway
-        run: |
+          
           docker build -t karantaneja2501/microservicesheelloimages:gateway -f ApiGateway/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:gateway
