@@ -2,7 +2,7 @@ name: Build and Push to Docker Hub
 
 on:
   push:
-    branches: [ "main" ]  # Jab aap 'main' branch pe push karoge tab ye chalega
+    branches: [ "main" ]
 
 jobs:
   build-and-push:
@@ -26,8 +26,3 @@ jobs:
         run: |
           docker build -t karantaneja2501/microservicesheelloimages:customer -f CustomerApi/Dockerfile .
           docker push karantaneja2501/microservicesheelloimages:customer
-
-      - name: Build and Push Gateway
-        run: |
-          docker build -t karantaneja2501/microservicesheelloimages:gateway -f ApiGateway/Dockerfile .
-          docker push karantaneja2501/microservicesheelloimages:gateway
