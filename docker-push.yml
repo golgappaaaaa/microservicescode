@@ -67,3 +67,12 @@ jobs:
           cd ApiGateway
           docker build -t karantaneja2501/microservicesheelloimages:gateway .
           docker push karantaneja2501/microservicesheelloimages:gateway
+
+          # 4. Render ko "Missed Call" dena (Auto-Deploy Trigger)
+      - name: Trigger Render Deployment
+        run: |
+          echo "Notifying Render to pull new images..."
+          curl -X POST ${{ secrets.RENDER_PRODUCT_HOOK }}
+          curl -X POST ${{ secrets.RENDER_CUSTOMER_HOOK }}
+          # Agar Gateway ka hook hai toh niche wali line bhi uncomment kar dena
+          # curl -X POST ${{ secrets.RENDER_GATEWAY_HOOK }}
