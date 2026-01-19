@@ -1,3 +1,31 @@
+# name: Build and Push to Docker Hub
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-push:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v3
+
+#       - name: Login to Docker Hub
+#         uses: docker/login-action@v2
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+
+#       - name: Build and Push All Images
+#         run: |
+#           docker build -t karantaneja2501/microservicesheelloimages:product -f ProductApi/Dockerfile .
+#           docker push karantaneja2501/microservicesheelloimages:product
+#           docker build -t karantaneja2501/microservicesheelloimages:customer -f CustomerApi/Dockerfile .
+#           docker push karantaneja2501/microservicesheelloimages:customer
+#           docker build -t karantaneja2501/microservicesheelloimages:gateway -f ApiGateway/Dockerfile .
+#           docker push karantaneja2501/microservicesheelloimages:gateway
 name: Build and Push to Docker Hub
 
 on:
@@ -18,9 +46,51 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Product API
+      # - name: Build and Push All Images
+      #   run: |
+      #     # 1. Product API
+      #     echo "Building Product API..."
+      #     cd ProductApi
+      #     docker build -t karantaneja2501/microservicesheelloimages:product .
+      #     docker push karantaneja2501/microservicesheelloimages:product
+      #     cd ..
+
+          # # 2. Customer API
+          # echo "Building Customer API..."
+          # cd CustomerApi
+          # docker build -t karantaneja2501/microservicesheelloimages:customer .
+          # docker push karantaneja2501/microservicesheelloimages:customer
+          # cd ..
+
+          # # 3. Api Gateway
+          # echo "Building API Gateway..."
+          # cd ApiGateway
+          # docker build -t karantaneja2501/microservicesheelloimages:gateway .
+          # docker push karantaneja2501/microservicesheelloimages:gateway
+
+          # 1. Product API (Ye pehle se hai)
+      - name: Build and Push Product API
         run: |
-          # Sabse aasaan rasta: Folder ke andar jaakar build karo
-          cd ProductApi
-          docker build -t karantaneja2501/microservicesheelloimages:product .
+          docker build -t karantaneja2501/microservicesheelloimages:product ./ProductApi
           docker push karantaneja2501/microservicesheelloimages:product
+
+      # 2. Customer API (Ye Naya Add Karo)
+      - name: Build and Push Customer API
+        run: |
+          docker build -t karantaneja2501/microservicesheelloimages:customer ./CustomerApi
+          docker push karantaneja2501/microservicesheelloimages:customer
+
+      # 3. Trigger Render (Dono ko deploy karne ke liye)
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST ${{ secrets.RENDER_PRODUCT_HOOK }}
+          curl -X POST ${{ secrets.RENDER_CUSTOMER_HOOK }}
+
+          # 4. Render ko "Missed Call" dena (Auto-Deploy Trigger)
+      - name: Trigger Render Deployment
+        run: |
+          echo "Notifying Render to pull new images..."
+          curl -X POST ${{ secrets.RENDER_PRODUCT_HOOK }}
+          curl -X POST ${{ secrets.RENDER_CUSTOMER_HOOK }}
+          # Agar Gateway ka hook hai toh niche wali line bhi uncomment kar dena
+          # curl -X POST ${{ secrets.RENDER_GATEWAY_HOOK }}
