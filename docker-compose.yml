@@ -160,30 +160,57 @@
 #       - customerapi
 
 
+# services:
+#   productapi:
+#     container_name: product-api-container
+#     build:
+#       context: .
+#       dockerfile: ProductApi/Dockerfile
+#     ports:
+#       - "5001:80"
+
+#   customerapi:
+#     container_name: customer-api-container
+#     build:
+#       context: .
+#       dockerfile: CustomerApi/Dockerfile
+#     ports:
+#       - "5002:80"
+
+#   apigateway:
+#     container_name: gateway-container
+#     build:
+#       context: .
+#       dockerfile: ApiGateway/Dockerfile
+#     ports:
+#       - "5000:80"
+#     depends_on:
+#       - productapi
+#       - customerapi
+
+version: '3.8'
+
 services:
-  productapi:
-    container_name: product-api-container
-    build:
-      context: .
-      dockerfile: ProductApi/Dockerfile
+  product-api:
+    image: karantaneja2501/microservicesheelloimages:product
     ports:
       - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
 
-  customerapi:
-    container_name: customer-api-container
-    build:
-      context: .
-      dockerfile: CustomerApi/Dockerfile
+  customer-api:
+    image: karantaneja2501/microservicesheelloimages:customer
     ports:
       - "5002:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
 
-  apigateway:
-    container_name: gateway-container
-    build:
-      context: .
-      dockerfile: ApiGateway/Dockerfile
+  api-gateway:
+    image: karantaneja2501/microservicesheelloimages:gateway
     ports:
       - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-      - productapi
-      - customerapi
+      - product-api
+      - customer-api 
