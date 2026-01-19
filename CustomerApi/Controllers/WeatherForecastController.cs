@@ -8,6 +8,6 @@ public class WeatherForecastController : ControllerBase
 {
     [HttpGet]
     public IActionResult Get() => Ok(new[] { "Customer A", "Customer B" });
-    [HttpGet]
+    [HttpGet("test-deploy")]
     public IActionResult CheckautomaticdeplomenttillrenderGet() => Ok(new[] { "dCheckautomaticdeplomenttillrenderGet A", "CheckautomaticdeplomenttillrenderGet B" });
 }
