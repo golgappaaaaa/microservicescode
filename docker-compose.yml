@@ -1,3 +1,6 @@
+
+
+#local
 # version: '3.4'
 
 # services:
@@ -36,6 +39,10 @@
 #     depends_on:
 #       - productapi
 #       - customerapi
+
+      #local
+
+
 # version: '3.4'
 
 # services:
@@ -159,7 +166,7 @@
 #       - productapi
 #       - customerapi
 
-
+ #version: '3.4'
 # services:
 #   productapi:
 #     container_name: product-api-container
@@ -188,29 +195,83 @@
 #       - productapi
 #       - customerapi
 
-version: '3.8'
+
+#server <- pull lena ho docker hub se ya server related to server code
+#Lene ke liye (Pull): Sirf image likhte hain, build ko hata dete hain.
+#Bhejne ke liye (Push): build aur image dono saath mein likhte hain.
+
+# version: '3.4'
+
+# services:
+#   productapi:
+#     container_name: product-api-container
+#     build:
+#       context: .
+#       dockerfile: ProductApi/Dockerfile
+#     ports:
+#       - "5001:80"
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+
+#   customerapi:
+#     container_name: customer-api-container
+#     build:
+#       context: .
+#       dockerfile: CustomerApi/Dockerfile
+#     ports:
+#       - "5002:80"
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+
+#   apigateway:
+#     container_name: gateway-container
+#     build:
+#       context: .
+#       dockerfile: ApiGateway/Dockerfile
+#     ports:
+#       - "5000:80"
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+#     depends_on:
+#       - productapi
+#       - customerapi
+
+
+#server
+
+
+
+
+#yeh dcoker pe bhejene k liye ya pull lene k liye
+
 
 services:
-  product-api:
-    image: karantaneja2501/microservicesheelloimages:product
+  productapi:
+    container_name: product-api-container
+    # 1. Image ka naam pehle se fix kar do
+    image: karantaneja2501/microservicesheelloimages:product 
+    build:
+      context: ./ProductApi
+      dockerfile: Dockerfile
     ports:
       - "5001:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
 
-  customer-api:
+  customerapi:
+    container_name: customer-api-container
     image: karantaneja2501/microservicesheelloimages:customer
+    build:
+      context: ./CustomerApi
+      dockerfile: Dockerfile
     ports:
       - "5002:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
 
-  api-gateway:
+  apigateway:
+    container_name: gateway-container
     image: karantaneja2501/microservicesheelloimages:gateway
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
     ports:
       - "5000:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      - product-api
-      - customer-api 
+
+#yeh docker ko bhejene k liye 
